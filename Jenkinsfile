@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Clone Repository') {
             steps {
                 git 'https://github.com/2024tm93676-DishaniBasak-dev/ACEest-Fitness-Gym-app.git'
             }
@@ -26,5 +26,6 @@ pipeline {
                 sh 'docker build -t aceest-app .'
             }
         }
+
     }
 }
