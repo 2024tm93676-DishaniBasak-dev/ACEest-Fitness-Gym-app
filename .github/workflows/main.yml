@@ -3,18 +3,14 @@ name: ACEest CI Pipeline
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Setup Python
@@ -23,13 +19,10 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run Tests
-        run: |
-          pytest
+        run: pytest
 
       - name: Build Docker Image
-        run: |
-          docker build -t aceest-app .
+        run: docker build -t aceest-app .
