@@ -2,111 +2,106 @@
 
 ## Project Overview
 
-This project demonstrates the implementation of a complete **DevOps lifecycle** including:
+This project demonstrates an end-to-end DevOps implementation for a fitness application, covering the complete software delivery lifecycle from development to cloud deployment.
 
-- Application development using **Flask**
-- Version control using **Git & GitHub**
-- Automated testing using **Pytest**
-- Containerization using **Docker**
-- Continuous Integration using **GitHub Actions**
-- Build validation using **Jenkins**
+The project integrates modern DevOps tools and practices including:
 
-The objective is to simulate the **software evolution of a real-world application** while automating the build and testing workflow through CI/CD pipelines.
+* Flask-based application development
+* Version control using Git & GitHub
+* Automated testing using Pytest
+* Continuous Integration using GitHub Actions
+* Build validation using Jenkins
+* Code quality analysis using SonarQube
+* Containerization using Docker
+* Container orchestration using Kubernetes
+* Cloud deployment using AWS Elastic Kubernetes Service (EKS)
+* Advanced deployment strategies (Rolling, Blue-Green, Canary, Shadow, A/B)
 
----
-
-# System Architecture
-
-The DevOps workflow implemented in this project follows the pipeline below:
-
-```
-Developer pushes code
-        ↓
-GitHub Repository
-        ↓
-GitHub Actions CI Pipeline
-        ↓
-Install dependencies
-Run automated tests
-Build Docker image
-        ↓
-Jenkins Build Pipeline
-        ↓
-Run automated tests again
-Validate application build
-
-```
-
-This architecture ensures **continuous integration and automated validation** for every code change.
+The objective is to simulate real-world software evolution and demonstrate automated CI/CD pipelines with scalable cloud deployment.
 
 ---
 
-# Project Structure
+## System Architecture
+
+The DevOps pipeline implemented in this project follows the workflow below:
+
+Developer → GitHub Repository → GitHub Actions CI → Jenkins Pipeline → SonarQube Analysis → Docker Hub → AWS EKS → Kubernetes Deployment → LoadBalancer → End User
+
+### Pipeline Flow
+
+1. Developer pushes code to GitHub
+2. GitHub Actions triggers CI pipeline
+3. Dependencies are installed and tests are executed
+4. Docker image is built
+5. Jenkins pipeline validates build and runs tests
+6. SonarQube performs static code analysis
+7. Docker image is pushed to Docker Hub
+8. Kubernetes (EKS) pulls image and deploys application
+9. Application is exposed via AWS LoadBalancer
+
+---
+
+## Project Structure
 
 ```
 ACEest-Fitness-Gym-app
 │
-├── app/
-│   ├── __init__.py
-│   ├── app.py
-│   ├── routes.py
-│   └── services.py
+├── app/                     # Flask application
+├── test/                    # Unit tests
+├── versions/                # Application evolution versions
 │
-├── test/
-│   └── test_app.py
+├── k8s/                     # Kubernetes manifests
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── blue-deployment.yaml
+│   ├── green-deployment.yaml
+│   ├── canary-deployment.yaml
+│   ├── shadow-deployment.yaml
+│   ├── ab-deployment.yaml
 │
-├── versions/
-│   ├── Aceestver-1.0.py
-│   ├── Aceestver-1.1.py
-│   ├── Aceestver-1.1.2.py
-│   ├── Aceestver-2.0.1.py
-│   ├── Aceestver-2.1.2.py
-│   ├── Aceestver-2.2.1.py
-│   ├── Aceestver-2.2.4.py
-│   ├── Aceestver-3.0.1.py
-│   ├── Aceestver-3.1.2.py
-│   └── Aceestver-3.2.4.py
-│
-├── Dockerfile
-├── Jenkinsfile
-├── requirements.txt
+├── .github/workflows/       # GitHub Actions CI pipeline
+├── Dockerfile               # Container build file
+├── Jenkinsfile              # Jenkins pipeline
+├── sonar-project.properties # SonarQube config
+├── requirements.txt         # Dependencies
 ├── README.md
-└── .github/workflows/main.yml
+└── .gitignore
 ```
 
 ---
 
-# Technologies Used
+## Technologies Used
 
-| Technology | Purpose |
-|------------|---------|
-| Python | Core application development |
-| Flask | Backend API service |
-| Git & GitHub | Version control |
-| Pytest | Automated testing |
-| Docker | Containerization |
-| GitHub Actions | CI pipeline automation |
-| Jenkins | Build validation pipeline |
+| Technology     | Purpose                 |
+| -------------- | ----------------------- |
+| Python         | Application development |
+| Flask          | Backend API             |
+| Git & GitHub   | Version control         |
+| Pytest         | Testing framework       |
+| GitHub Actions | Continuous Integration  |
+| Jenkins        | Build validation        |
+| SonarQube      | Code quality analysis   |
+| Docker         | Containerization        |
+| Kubernetes     | Container orchestration |
+| AWS EKS        | Cloud deployment        |
 
 ---
 
-# Running the Application Locally
+## Running the Application Locally
 
-## Install Dependencies
+### Install Dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
----
-
-## Run the Flask Application
+### Run Application
 
 ```
 python -m app.app
 ```
 
-The application will run on:
+Application runs on:
 
 ```
 http://localhost:5001
@@ -114,116 +109,183 @@ http://localhost:5001
 
 ---
 
-# Running Unit Tests
-
-Automated tests are implemented using **Pytest**.
-
-Run:
+## Running Tests
 
 ```
 pytest
 ```
 
-Example output:
+---
+
+## Docker Setup
+
+### Build Image
 
 ```
-3 passed in 0.11s
+docker build -t dishaniwilp/aceest-app:v1 .
+```
+
+### Push to Docker Hub
+
+```
+docker push dishaniwilp/aceest-app:v1
+```
+
+### Run Container
+
+```
+docker run -p 5001:5001 dishaniwilp/aceest-app:v1
 ```
 
 ---
 
-# Running the Application with Docker
+## GitHub Actions (CI Pipeline)
 
-## Build Docker Image
-
-```
-docker build -t aceest-app .
-```
-
-## Run Docker Container
-
-```
-docker run -p 5001:5001 aceest-app
-```
-
-The application will be available at:
-
-```
-http://localhost:5001
-```
-
----
-
-# Continuous Integration (GitHub Actions)
-
-The CI pipeline automatically runs whenever code is pushed to the repository.
-
-Workflow file location:
+Location:
 
 ```
 .github/workflows/main.yml
 ```
 
-Pipeline stages include:
+Pipeline Steps:
 
-1. Checkout repository
-2. Install dependencies
-3. Run unit tests
-4. Build Docker image
+* Checkout code
+* Install dependencies
+* Run tests
+* Build Docker image
 
-This ensures that every commit is automatically validated.
-
----
-
-# Jenkins Build Pipeline
-
-A Jenkins pipeline is implemented using the **Jenkinsfile**.
-
-Pipeline stages include:
-
-```
-Install Dependencies
-Run Tests
-```
-
-Jenkins automatically pulls the repository and validates the build process.
+Ensures every commit is automatically validated.
 
 ---
 
-# Software Evolution Simulation
+## Jenkins Pipeline
 
-Multiple versions of the ACEest application were provided to simulate **real software evolution**.
-
-Versions include:
+Defined in:
 
 ```
-v1.0 Initial version
-v1.1 Feature enhancements
-v1.1.2 Bug fixes
-v2.x Database integration and analytics
-v3.x Advanced tracking and optimization
+Jenkinsfile
 ```
 
-Each version was committed sequentially to demonstrate **continuous integration behavior**.
+Pipeline Stages:
+
+* Install Dependencies
+* Run Tests
+* SonarQube Analysis
+
+Jenkins ensures build stability and quality checks.
 
 ---
 
-# DevOps Outcomes
+## SonarQube Integration
 
-This project demonstrates:
+SonarQube performs static code analysis to detect:
 
-- Continuous Integration
-- Automated testing pipelines
-- Containerized application deployment
-- Build validation with Jenkins
-- Realistic software version evolution
+* Bugs
+* Code smells
+* Vulnerabilities
+* Maintainability issues
 
-The pipeline ensures that every change is **automatically tested and validated**, improving reliability and development efficiency.
+Improves overall code quality before deployment.
 
 ---
 
-# Author
+## Kubernetes Deployment
 
-**Dishani Basak**
+### Apply Deployment
+
+```
+kubectl apply -f k8s/deployment.yaml
+```
+
+### Apply Service
+
+```
+kubectl apply -f k8s/service.yaml
+```
+
+Application is exposed using a LoadBalancer service.
+
+---
+
+## AWS EKS Deployment
+
+The application is deployed on AWS Elastic Kubernetes Service (EKS).
+
+Key steps:
+
+* Cluster creation
+* Node group configuration
+* Application deployment
+* LoadBalancer exposure
+
+Access the application using:
+
+```
+http://<EXTERNAL-IP>:5000
+```
+
+---
+
+## Deployment Strategies
+
+### Rolling Deployment
+
+Default Kubernetes update strategy ensuring zero downtime.
+
+---
+
+### Blue-Green Deployment
+
+Two environments (blue & green) allow switching traffic between versions safely.
+
+---
+
+### Canary Deployment
+
+New version is released to a small subset of users before full rollout.
+
+---
+
+### Shadow Deployment
+
+New version runs in parallel without affecting production traffic.
+
+---
+
+### A/B Testing
+
+Multiple versions run simultaneously for comparison and evaluation.
+
+---
+
+## Software Evolution
+
+The project simulates real-world software evolution using multiple versions:
+
+* v1.x – Initial implementation
+* v2.x – Feature enhancements
+* v3.x – Advanced optimizations
+
+Each version demonstrates incremental development and CI validation.
+
+---
+
+## DevOps Outcomes
+
+This project successfully demonstrates:
+
+* End-to-end CI/CD pipeline
+* Automated testing and validation
+* Code quality integration
+* Containerized deployments
+* Kubernetes orchestration
+* Cloud deployment using AWS EKS
+* Implementation of multiple deployment strategies
+
+---
+
+## Author
+
+Dishani Basak
 
 DevOps Assignment – Implementing Automated CI/CD Pipelines for ACEest Fitness & Gym
