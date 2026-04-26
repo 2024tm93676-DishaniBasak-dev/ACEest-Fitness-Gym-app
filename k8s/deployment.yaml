@@ -4,13 +4,22 @@ metadata:
   name: aceest-app
 spec:
   replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
   selector:
     matchLabels:
       app: aceest
+
   template:
     metadata:
       labels:
         app: aceest
+
     spec:
       containers:
       - name: aceest
