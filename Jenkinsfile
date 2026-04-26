@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        sonarScanner 'sonar-scanner'
+    }
+
     stages {
 
         stage('Install Dependencies') {
@@ -15,9 +19,11 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+      stage('SonarQube Analysis') {
             steps {
-                sh 'sonar-scanner'
+                 withSonarQubeEnv('SonarQube') {
+                    sh '/opt/homebrew/Cellar/sonar-scanner/8.1.0.6389/libexec/bin/sonar-scanner'
+                }
             }
         }
 
