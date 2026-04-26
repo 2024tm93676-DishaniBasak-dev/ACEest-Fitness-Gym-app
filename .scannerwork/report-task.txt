@@ -1,6 +1,0 @@
-projectKey=aceest
-serverUrl=http://localhost:9000
-serverVersion=26.4.0.121862
-dashboardUrl=http://localhost:9000/dashboard?id=aceest
-ceTaskId=224283de-9a10-4b67-a234-262108677d43
-ceTaskUrl=http://localhost:9000/api/ce/task?id=224283de-9a10-4b67-a234-262108677d43
