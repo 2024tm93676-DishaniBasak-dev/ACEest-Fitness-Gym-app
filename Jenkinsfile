@@ -18,7 +18,14 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh '/opt/homebrew/Cellar/sonar-scanner/8.1.0.6389/libexec/bin/sonar-scanner'
+                    sh '''
+                    export JAVA_HOME=/opt/homebrew/opt/openjdk
+                    export PATH=$JAVA_HOME/bin:$PATH
+
+                    java -version
+
+                    /opt/homebrew/Cellar/sonar-scanner/8.1.0.6389/libexec/bin/sonar-scanner
+                    '''
                 }
             }
         }
