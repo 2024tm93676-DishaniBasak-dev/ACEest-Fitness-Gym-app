@@ -284,6 +284,19 @@ This project successfully demonstrates:
 
 ---
 
+## Rollback Capability
+
+Rollback functionality was implemented using Kubernetes deployment revision control. The deployment history shows multiple revisions, allowing the system to revert to a previous stable version when required.
+
+Commands used:
+
+kubectl rollout history deployment aceest-app
+kubectl rollout undo deployment aceest-app
+
+This ensures zero downtime and reliability in case of deployment failures.
+
+---
+
 ## Author
 
 Dishani Basak
