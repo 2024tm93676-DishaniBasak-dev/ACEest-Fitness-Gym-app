@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: aceest-canary
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
       app: aceest
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: aceest
-        image: dishaniwilp/aceest-app:v2   # new version
+        image: dishaniwilp/aceest-app:v1
         ports:
         - containerPort: 5001
