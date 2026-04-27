@@ -27,6 +27,9 @@ The DevOps pipeline implemented in this project follows the workflow below:
 
 Developer → GitHub Repository → GitHub Actions CI → Jenkins Pipeline → SonarQube Analysis → Docker Hub → AWS EKS → Kubernetes Deployment → LoadBalancer → End User
 
+### Architecture Diagram
+documents/images/architecture/ci_cd_architecture.png
+
 ### Pipeline Flow
 
 1. Developer pushes code to GitHub
@@ -59,10 +62,23 @@ ACEest-Fitness-Gym-app
 │   ├── shadow-deployment.yaml
 │   ├── ab-deployment.yaml
 │
+├── documents/images/        # Screenshots
+│   ├── architecture/ 
+│   ├── csp_eks/ 
+│   ├── deployments/ 
+│   ├── dockerhub/ 
+│   ├── github_actions/ 
+│   ├── jenkins/ 
+│   ├── kubernetes/ 
+│   ├── rollback/ 
+│   ├── sonarqube/ 
+│   ├── testing/
+│
 ├── .github/workflows/       # GitHub Actions CI pipeline
 ├── Dockerfile               # Container build file
 ├── Jenkinsfile              # Jenkins pipeline
 ├── sonar-project.properties # SonarQube config
+├── sonarqube_report.txt.    # Sonarqube report
 ├── requirements.txt         # Dependencies
 ├── README.md
 └── .gitignore
@@ -115,6 +131,10 @@ http://localhost:5001
 pytest
 ```
 
+Proof:
+
+documents/images/testing/Pytest test cases_Pass
+
 ---
 
 ## Docker Setup
@@ -137,6 +157,10 @@ docker push dishaniwilp/aceest-app:v1
 docker run -p 5001:5001 dishaniwilp/aceest-app:v1
 ```
 
+Docker Hub Proof:
+
+documents/images/dockerhub/
+
 ---
 
 ## GitHub Actions (CI Pipeline)
@@ -146,6 +170,11 @@ Location:
 ```
 .github/workflows/main.yml
 ```
+
+Proof:
+
+documents/images/github_actions/
+
 
 Pipeline Steps:
 
@@ -174,6 +203,10 @@ Pipeline Stages:
 
 Jenkins ensures build stability and quality checks.
 
+Proof:
+
+documents/images/jenkins/
+
 ---
 
 ## SonarQube Integration
@@ -186,6 +219,16 @@ SonarQube performs static code analysis to detect:
 * Maintainability issues
 
 Improves overall code quality before deployment.
+
+Quality Gate: PASSED
+
+Proof:
+
+documents/images/sonarqube/
+
+Report File:
+
+sonarqube_report.txt
 
 ---
 
@@ -204,6 +247,10 @@ kubectl apply -f k8s/service.yaml
 ```
 
 Application is exposed using a LoadBalancer service.
+
+Proof:
+
+documents/images/kubernetes/
 
 ---
 
@@ -224,9 +271,22 @@ Access the application using:
 http://<EXTERNAL-IP>:5000
 ```
 
+Proof:
+
+documents/images/csp_eks/
+
+Endpoint URL
+```
+http://ad42d72e52dec46ea862ae96fb02ee8c-884694430.ap-south-1.elb.amazonaws.com:5000
+```
+
 ---
 
 ## Deployment Strategies
+
+Proof:
+
+documents/images/deployments/
 
 ### Rolling Deployment
 
@@ -294,6 +354,22 @@ kubectl rollout history deployment aceest-app
 kubectl rollout undo deployment aceest-app
 
 This ensures zero downtime and reliability in case of deployment failures.
+
+Proof:
+
+documents/images/rollback/
+
+---
+
+## Challenges Faced
+
+1. Jenkins Java Runtime Issue
+2. Kubernetes Pod Startup Issues
+3. Git Push Conflict
+
+Proof:
+
+documents/images/git_push_conflict_resolution
 
 ---
 

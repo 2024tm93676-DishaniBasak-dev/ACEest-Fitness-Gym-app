@@ -1,0 +1,21 @@
+SonarQube Analysis Report – ACEest Fitness App
+
+Project Name: ACEest Fitness
+Status: PASSED
+
+Metrics:
+
+* Security: A (0 issues)
+* Reliability: A (0 issues)
+* Maintainability: A (1 minor issue)
+* Coverage: 0%
+* Duplications: 0%
+
+Analysis Summary:
+The project successfully passed the SonarQube Quality Gate with no critical issues. Code quality is good and meets the required standards for deployment.
+
+Tool Used:
+SonarQube Community Edition 26.x
+
+Note:
+Detailed dashboard screenshots are available in the documents/images/sonarqube folder.
