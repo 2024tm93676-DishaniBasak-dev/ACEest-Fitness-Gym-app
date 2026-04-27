@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: aceest
-        image: dishaniwilp/aceest-app:v1
+        image: dishaniwilp/aceest-app:v1   # version-a
+        imagePullPolicy: Always
         ports:
         - containerPort: 5001
 ---
@@ -38,6 +39,7 @@ spec:
     spec:
       containers:
       - name: aceest
-        image: dishaniwilp/aceest-app:v1
+        image: dishaniwilp/aceest-app:v2   # version-b
+        imagePullPolicy: Always
         ports:
         - containerPort: 5001
