@@ -21,6 +21,29 @@ The objective is to simulate real-world software evolution and demonstrate autom
 
 ---
 
+## Deployment Validation Results
+
+All deployment strategies have been successfully implemented and validated on AWS EKS.
+
+For quick evaluation, final verified outputs are available in:
+documents/images/deployment_validation_results
+
+This includes:
+
+* LoadBalancer endpoint output (EKS)
+* Blue deployment verification
+* Green deployment verification
+* Canary deployment verification
+* Shadow deployment verification
+* A/B testing verification (Version A and Version B)
+
+Each screenshot demonstrates that the application responds with the corresponding version, validating that deployment strategies are correctly implemented and observable via the endpoint.
+
+Detailed execution screenshots are available under:
+documents/images/
+
+---
+
 ## System Architecture
 
 The DevOps pipeline implemented in this project follows the workflow below:
@@ -73,6 +96,8 @@ ACEest-Fitness-Gym-app
 │   ├── rollback/ 
 │   ├── sonarqube/ 
 │   ├── testing/
+│   ├── minikube/
+│   ├── deployment_validation_results
 │
 ├── .github/workflows/       # GitHub Actions CI pipeline
 ├── Dockerfile               # Container build file
@@ -88,18 +113,19 @@ ACEest-Fitness-Gym-app
 
 ## Technologies Used
 
-| Technology     | Purpose                 |
-| -------------- | ----------------------- |
-| Python         | Application development |
-| Flask          | Backend API             |
-| Git & GitHub   | Version control         |
-| Pytest         | Testing framework       |
-| GitHub Actions | Continuous Integration  |
-| Jenkins        | Build validation        |
-| SonarQube      | Code quality analysis   |
-| Docker         | Containerization        |
-| Kubernetes     | Container orchestration |
-| AWS EKS        | Cloud deployment        |
+| Technology     | Purpose                        |
+| -------------- | ------------------------------ |
+| Python         | Application development        |
+| Flask          | Backend API                    |
+| Git & GitHub   | Version control                |
+| Pytest         | Testing framework              |
+| GitHub Actions | Continuous Integration         |
+| Jenkins        | Build validation               |
+| SonarQube      | Code quality analysis          |
+| Docker         | Containerization               |
+| Kubernetes     | Container orchestration        |
+| Minikube       | Local Kubernetes testing (POC) |
+| AWS EKS        | Cloud deployment               |
 
 ---
 
@@ -251,6 +277,21 @@ Application is exposed using a LoadBalancer service.
 Proof:
 
 documents/images/kubernetes/
+
+---
+
+## Minikube (Local POC Validation)
+
+Before deploying to AWS EKS, initial validation of the application and Kubernetes manifests was performed using Minikube.
+
+The following were verified locally:
+- Application deployment using Kubernetes manifests
+- Pod creation and running status
+- Service exposure and accessibility via Minikube
+
+Proof : 
+
+documents/images/minikube/
 
 ---
 
