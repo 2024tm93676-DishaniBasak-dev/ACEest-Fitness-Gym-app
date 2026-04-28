@@ -23,7 +23,10 @@ spec:
     spec:
       containers:
       - name: aceest
-        image: dishaniwilp/aceest-app:v1
+        image: dishaniwilp/aceest-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
+        env:
+        - name: APP_VERSION
+          value: "v1"

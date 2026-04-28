@@ -1,5 +1,6 @@
 from flask import Flask
 from app.routes import api
+import os
 
 def create_app():
     app = Flask(__name__)
@@ -7,7 +8,10 @@ def create_app():
 
     @app.route("/")
     def home():
-        return {"message": "ACEest Fitness API running"}
+        return {
+            "message": "ACEest Fitness API running",
+            "version": os.getenv("APP_VERSION", "v1")
+        }
 
     return app
 
